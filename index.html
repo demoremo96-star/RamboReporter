@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090909">
+<title>RAMBO REPORTER | Cricket & News</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --red:#ed101b;
+  --dark:#090909;
+  --card:#151515;
+  --muted:#aaa;
+}
+
+body{
+  background:var(--dark);
+  color:white;
+  font-family:Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+
+header{
+  text-align:center;
+  padding:19px 10px;
+  background:#101010;
+  border-bottom:2px solid var(--red);
+}
+
+.logo{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+.logo span{color:var(--red)}
+
+.tagline{
+  color:#aaa;
+  font-size:10px;
+  letter-spacing:3px;
+  margin-top:6px;
+}
+
+.ticker{
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  white-space:nowrap;
+  background:#b90008;
+  padding:10px 0;
+}
+
+.ticker-label{
+  background:#700006;
+  padding:0 12px;
+  font-size:12px;
+  font-weight:bold;
+  z-index:1;
+}
+
+.ticker-track{
+  display:inline-block;
+  padding-left:100%;
+  animation:scroll 30s linear infinite;
+  font-size:12px;
+}
+
+@keyframes scroll{
+  to{transform:translateX(-100%)}
+}
+
+.container{
+  width:92%;
+  max-width:850px;
+  margin:auto;
+}
+
+.hero{
+  text-align:center;
+  padding:36px 12px 25px;
+  background:radial-gradient(ellipse at center,#421010,#160909 55%,#090909);
+}
+
+.lion{
+  font-size:85px;
+  filter:drop-shadow(0 0 18px #e50914);
+  animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.06)}
+}
+
+.hero h1{
+  font-size:33px;
+  font-weight:900;
+  margin:12px 0;
+}
+
+.hero h1 span{color:var(--red)}
+
+.hero p{
+  color:#ccc;
+  font-size:14px;
+  line-height:1.7;
+}
+
+.join-card{
+  margin:18px auto;
+  padding:20px 16px;
+  text-align:center;
+  border:1px solid #8e1515;
+  border-radius:14px;
+  background:linear-gradient(135deg,#281010,#111);
+  box-shadow:0 5px 25px #000;
+}
+
+.join-card h2{
+  font-size:19px;
+  margin-bottom:8px;
+}
+
+.join-card p{
+  color:#aaa;
+  font-size:12px;
+  margin-bottom:16px;
+}
+
+.join-btn{
+  display:block;
+  width:100%;
+  padding:17px 10px;
+  border-radius:9px;
+  background:linear-gradient(90deg,#ed101b,#a50008);
+  color:white;
+  text-decoration:none;
+  font-weight:900;
+  font-size:18px;
+  box-shadow:0 5px 20px #e5091444;
+}
+
+.join-btn:active{transform:scale(.98)}
+
+.section{
+  margin:22px auto;
+  padding:17px 14px;
+  border:1px solid #292929;
+  border-radius:13px;
+  background:var(--card);
+}
+
+.section-title{
+  font-size:19px;
+  font-weight:900;
+  border-left:4px solid var(--red);
+  padding-left:10px;
+  margin-bottom:17px;
+}
+
+.section-title small{
+  display:block;
+  color:#888;
+  font-size:10px;
+  font-weight:normal;
+  margin-top:5px;
+}
+
+/* SLIDESHOW */
+
+.slideshow{
+  overflow:hidden;
+  border-radius:12px;
+  background:#1b1b1b;
+}
+
+.slide{
+  display:none;
+  min-height:190px;
+  padding:30px 15px;
+  text-align:center;
+  background:linear-gradient(135deg,#390909,#111);
+}
+
+.slide.active{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.slide .emoji{
+  font-size:43px;
+  margin-bottom:12px;
+}
+
+.slide h3{
+  font-size:21px;
+  margin-bottom:8px;
+}
+
+.slide p{
+  color:#ccc;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.dots{text-align:center;padding-top:12px}
+
+.dot{
+  display:inline-block;
+  height:8px;
+  width:8px;
+  border-radius:50%;
+  background:#555;
+  margin:4px;
+}
+
+.dot.active{
+  width:22px;
+  border-radius:8px;
+  background:var(--red);
+}
+
+/* NEWS */
+
+.news-heading{
+  color:#ff5656;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin:18px 0 10px;
+}
+
+.news-card{
+  padding:13px;
+  margin-bottom:10px;
+  background:#1d1d1d;
+  border:1px solid #303030;
+  border-radius:10px;
+}
+
+.news-card a{
+  color:white;
+  text-decoration:none;
+}
+
+.news-card a:hover{color:#ff5555}
+
+.news-card h3{
+  font-size:14px;
+  line-height:1.55;
+}
+
+.news-meta{
+  color:#888;
+  font-size:10px;
+  margin-top:8px;
+}
+
+.news-tag{
+  color:#ff5555;
+  font-size:10px;
+  font-weight:bold;
+  margin-bottom:7px;
+}
+
+.status{
+  color:#aaa;
+  font-size:12px;
+  line-height:1.6;
+  padding:12px 2px;
+}
+
+.status.error{color:#ff8585}
+
+.refresh-area{
+  text-align:center;
+  color:#888;
+  font-size:11px;
+  margin-top:14px;
+  line-height:1.8;
+}
+
+.refresh-btn{
+  display:inline-block;
+  margin-top:8px;
+  padding:10px 20px;
+  border:1px solid #a71919;
+  border-radius:7px;
+  background:#251010;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.refresh-btn:disabled{
+  opacity:.5;
+  cursor:wait;
+}
+
+footer{
+  margin-top:25px;
+  padding:25px 12px;
+  text-align:center;
+  background:#101010;
+  border-top:1px solid #292929;
+  color:#888;
+  font-size:12px;
+  line-height:1.9;
+}
+
+footer b{color:white}
+
+@media(min-width:650px){
+  .hero h1{font-size:42px}
+  .lion{font-size:105px}
+  .join-card{max-width:570px}
+  .news-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .news-card{margin:0}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">RAMBO <span>REPORTER</span></div>
+  <div class="tagline">THE WORLD OF CRICKET & NEWS</div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-label">🔴 BREAKING</div>
+  <div class="ticker-track" id="tickerText">
+    Welcome to Rambo Reporter | Cricket News | Match Results |
+    Latest Headlines | Upcoming Matches
+  </div>
+</div>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="lion">🦁</div>
+    <h1>RAMBO <span>REPORTER</span></h1>
+    <p>
+      Cricket ki duniya ki har badi khabar,<br>
+      match updates aur breaking news ek hi jagah.
+    </p>
+  </section>
+
+  <!-- TELEGRAM JOIN -->
+  <section class="join-card">
+    <h2>JOIN OUR TELEGRAM CHANNEL</h2>
+    <p>Latest updates aur exclusive content ke liye humse judein.</p>
+
+    <a class="join-btn"
+       href="https://t.me/+OSq4Nr-UlApmYjU1"
+       target="_blank"
+       rel="noopener noreferrer">
+       ✈ JOIN RAMBO REPORTER
+    </a>
+  </section>
+
+  <!-- SLIDESHOW -->
+  <section class="section">
+    <div class="section-title">RAMBO REPORTER SPECIAL</div>
+
+    <div class="slideshow">
+
+      <div class="slide active">
+        <div class="emoji">🏏</div>
+        <h3>CRICKET KA HAR UPDATE</h3>
+        <p>International cricket se lekar IPL tak, har badi khabar.</p>
+      </div>
+
+      <div class="slide">
+        <div class="emoji">🔥</div>
+        <h3>BREAKING NEWS</h3>
+        <p>Cricket ki duniya ki latest headlines aur important updates.</p>
+      </div>
+
+      <div class="slide">
+        <div class="emoji">🏆</div>
+        <h3>MATCH RESULTS</h3>
+        <p>Kaun jeeta, kisne banaya record aur kya raha match ka result.</p>
+      </div>
+
+    </div>
+
+    <div class="dots" id="dots"></div>
+  </section>
+
+  <!-- CRICKET NEWS -->
+  <section class="section">
+
+    <div class="section-title">
+      🏏 RAMBO REPORTER – CRICKET UPDATES
+      <small>Latest cricket headlines and match-related news</small>
+    </div>
+
+    <div class="news-heading">TODAY'S MATCHES & RESULTS</div>
+    <div id="matchNews">
+      <div class="status">Loading cricket match updates...</div>
+    </div>
+
+    <div class="news-heading">LATEST CRICKET NEWS</div>
+    <div id="latestNews">
+      <div class="status">Loading latest cricket news...</div>
+    </div>
+
+    <div class="refresh-area">
+      <div id="lastUpdated">Connecting to news sources...</div>
+      <button class="refresh-btn" id="refreshButton" onclick="loadAllNews()">
+        ↻ REFRESH NEWS
+      </button>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  <b>RAMBO REPORTER</b><br>
+  Cricket • Breaking News • Match Updates<br>
+  © 2026 Rambo Reporter. All Rights Reserved.
+</footer>
+
+<script>
+
+/* =====================================
+   SLIDESHOW
+===================================== */
+
+const slides = document.querySelectorAll(".slide");
+const dotsBox = document.getElementById("dots");
+let slideIndex = 0;
+
+slides.forEach((slide,index)=>{
+  const dot = document.createElement("span");
+  dot.className = "dot" + (index===0 ? " active" : "");
+  dotsBox.appendChild(dot);
+});
+
+const dots = document.querySelectorAll(".dot");
+
+function showSlide(index){
+  slides.forEach(s=>s.classList.remove("active"));
+  dots.forEach(d=>d.classList.remove("active"));
+
+  slides[index].classList.add("active");
+  dots[index].classList.add("active");
+}
+
+setInterval(()=>{
+  slideIndex = (slideIndex+1) % slides.length;
+  showSlide(slideIndex);
+},3500);
+
+
+/* =====================================
+   NEWS SOURCES
+===================================== */
+
+// Google News RSS: match-related headlines
+const MATCH_FEED =
+ "https://news.google.com/rss/search?q=cricket+matches+today+results&hl=en-IN&gl=IN&ceid=IN:en";
+
+// Google News RSS: cricket results
+const RESULT_FEED =
+ "https://news.google.com/rss/search?q=cricket+match+results+winner&hl=en-IN&gl=IN&ceid=IN:en";
+
+// Google News RSS: latest cricket news
+const NEWS_FEED =
+ "https://news.google.com/rss/search?q=cricket+latest+news&hl=en-IN&gl=IN&ceid=IN:en";
+
+
+/* =====================================
+   RSS PARSER
+===================================== */
+
+function parseRSS(xmlText){
+
+  const xml = new DOMParser().parseFromString(
+    xmlText,
+    "application/xml"
+  );
+
+  if(xml.querySelector("parsererror")){
+    throw new Error("RSS format error");
+  }
+
+  const items = [
+    ...xml.querySelectorAll("item")
+  ];
+
+  return items.map(item=>({
+    title:item.querySelector("title")?.textContent?.trim() || "",
+    link:item.querySelector("link")?.textContent?.trim() || "",
+    date:item.querySelector("pubDate")?.textContent?.trim() || ""
+  })).filter(item=>item.title && item.link);
+}
+
+
+/* =====================================
+   FETCH METHOD 1: RSS2JSON
+===================================== */
+
+async function fetchWithRSS2JSON(feedUrl){
+
+  const api =
+    "https://api.rss2json.com/v1/api.json?rss_url=" +
+    encodeURIComponent(feedUrl);
+
+  const response = await fetch(api);
+
+  if(!response.ok){
+    throw new Error("RSS2JSON HTTP " + response.status);
+  }
+
+  const data = await response.json();
+
+  if(data.status !== "ok" || !Array.isArray(data.items)){
+    throw new Error(data.message || "RSS2JSON failed");
+  }
+
+  return data.items.map(item=>({
+    title:item.title || "",
+    link:item.link || "",
+    date:item.pubDate || ""
+  })).filter(item=>item.title && item.link);
+}
+
+
+/* =====================================
+   FETCH METHOD 2: ALLORIGINS
+===================================== */
+
+async function fetchWithAllOrigins(feedUrl){
+
+  const api =
+    "https://api.allorigins.win/raw?url=" +
+    encodeURIComponent(feedUrl);
+
+  const response = await fetch(api);
+
+  if(!response.ok){
+    throw new Error("AllOrigins HTTP " + response.status);
+  }
+
+  const xmlText = await response.text();
+
+  return parseRSS(xmlText);
+}
+
+
+/* =====================================
+   FETCH METHOD 3: CORS.SH
+===================================== */
+
+async function fetchWithCorsProxy(feedUrl){
+
+  const api =
+    "https://proxy.cors.sh/" + feedUrl;
+
+  const response = await fetch(api);
+
+  if(!response.ok){
+    throw new Error("CORS proxy HTTP " + response.status);
+  }
+
+  const xmlText = await response.text();
+
+  return parseRSS(xmlText);
+}
+
+
+/* =====================================
+   AUTOMATIC FALLBACK
+===================================== */
+
+async function getRSS(feedUrl){
+
+  const methods = [
+    fetchWithRSS2JSON,
+    fetchWithAllOrigins,
+    fetchWithCorsProxy
+  ];
+
+  let lastError;
+
+  for(const method of methods){
+
+    try{
+
+      const result = await method(feedUrl);
+
+      if(result && result.length){
+        return result;
+      }
+
+      lastError = new Error("No news items returned");
+
+    }catch(error){
+
+      console.warn(
+        "News source failed:",
+        method.name,
+        error.message
+      );
+
+      lastError = error;
+    }
+  }
+
+  throw lastError || new Error("All news sources failed");
+}
+
+
+/* =====================================
+   CREATE NEWS CARD
+===================================== */
+
+function makeNewsCard(item,label){
+
+  const card = document.createElement("article");
+  card.className = "news-card";
+
+  const tag = document.createElement("div");
+  tag.className = "news-tag";
+  tag.textContent = label;
+
+  const link = document.createElement("a");
+  link.href = item.link;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+
+  const heading = document.createElement("h3");
+  heading.textContent = item.title;
+
+  link.appendChild(heading);
+
+  const meta = document.createElement("div");
+  meta.className = "news-meta";
+
+  let dateText = "Latest update";
+
+  if(item.date){
+    const date = new Date(item.date);
+
+    if(!isNaN(date.getTime())){
+      dateText = date.toLocaleString("en-IN");
+    }
+  }
+
+  meta.textContent = dateText;
+
+  card.append(tag,link,meta);
+
+  return card;
+}
+
+
+/* =====================================
+   SHOW NEWS
+===================================== */
+
+function showNews(containerId,items,label){
+
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  if(!items || items.length===0){
+    container.innerHTML =
+      '<div class="status">No news available right now.</div>';
+    return;
+  }
+
+  items.slice(0,8).forEach(item=>{
+    container.appendChild(makeNewsCard(item,label));
+  });
+}
+
+
+/* =====================================
+   LOAD MATCH NEWS
+===================================== */
+
+async function loadMatchNews(){
+
+  const box = document.getElementById("matchNews");
+
+  box.innerHTML =
+    '<div class="status">Fetching match headlines...</div>';
+
+  try{
+
+    const [matches,results] = await Promise.all([
+      getRSS(MATCH_FEED),
+      getRSS(RESULT_FEED)
+    ]);
+
+    const combined = [...matches,...results];
+
+    const unique = [];
+    const seen = new Set();
+
+    combined.forEach(item=>{
+      const key = item.title.toLowerCase();
+
+      if(!seen.has(key)){
+        seen.add(key);
+        unique.push(item);
+      }
+    });
+
+    showNews("matchNews",unique,"MATCH UPDATE");
+
+    return true;
+
+  }catch(error){
+
+    console.error("Match news error:",error);
+
+    box.innerHTML =
+      '<div class="status error">' +
+      'Match updates are temporarily unavailable. Please try again later.' +
+      '</div>';
+
+    return false;
+  }
+}
+
+
+/* =====================================
+   LOAD LATEST NEWS
+===================================== */
+
+async function loadLatestNews(){
+
+  const box = document.getElementById("latestNews");
+
+  box.innerHTML =
+    '<div class="status">Fetching latest cricket news...</div>';
+
+  try{
+
+    const news = await getRSS(NEWS_FEED);
+
+    showNews("latestNews",news,"CRICKET NEWS");
+
+    return true;
+
+  }catch(error){
+
+    console.error("Latest news error:",error);
+
+    box.innerHTML =
+      '<div class="status error">' +
+      'Latest news is temporarily unavailable. Please try again later.' +
+      '</div>';
+
+    return false;
+  }
+}
+
+
+/* =====================================
+   LOAD ALL NEWS
+===================================== */
+
+let loadingNews = false;
+
+async function loadAllNews(){
+
+  if(loadingNews) return;
+
+  loadingNews = true;
+
+  const button = document.getElementById("refreshButton");
+  const status = document.getElementById("lastUpdated");
+
+  button.disabled = true;
+  button.textContent = "LOADING...";
+
+  status.textContent = "Connecting to cricket news sources...";
+
+  try{
+
+    const results = await Promise.all([
+      loadMatchNews(),
+      loadLatestNews()
+    ]);
+
+    const success = results.some(Boolean);
+
+    if(success){
+
+      status.textContent =
+        "Last updated: " +
+        new Date().toLocaleTimeString("en-IN");
+
+    }else{
+
+      status.textContent =
+        "News sources unavailable. Please try again later.";
+    }
+
+  }finally{
+
+    loadingNews = false;
+    button.disabled = false;
+    button.textContent = "↻ REFRESH NEWS";
+  }
+}
+
+
+/* =====================================
+   AUTO REFRESH EVERY 15 MINUTES
+===================================== */
+
+loadAllNews();
+
+setInterval(()=>{
+  if(document.visibilityState === "visible"){
+    loadAllNews();
+  }
+},15*60*1000);
+
+</script>
+
+</body>
+</html>
+
